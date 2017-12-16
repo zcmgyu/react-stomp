@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 class SockJsClient extends React.Component {
 
   static defaultProps = {
-    onConnect: () => {}
+    onConnect: () => { }
   }
-  
+
   static propTypes = {
     url: PropTypes.string.isRequired,
     topics: PropTypes.array.isRequired,
@@ -18,7 +18,8 @@ class SockJsClient extends React.Component {
 
   constructor(props) {
     super(props);
-    this.client = Stomp.over(new SockJS(this.props.url));
+    let { url, _reserved, options } = this.props
+    this.client = Stomp.over(new SockJS(url, _reserved, options));
     this.subscriptions = new Map();
 
     this.state = {
